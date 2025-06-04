@@ -3,7 +3,7 @@
         'name' => 'transacao-api/projeto',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'dffb4758c60c56b9ece68d13d3ff5b49c19113d4',
+        'reference' => 'cdc8f95a7274898ae1e0fd90af98275252414b47',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -166,7 +166,7 @@
         'transacao-api/projeto' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'dffb4758c60c56b9ece68d13d3ff5b49c19113d4',
+            'reference' => 'cdc8f95a7274898ae1e0fd90af98275252414b47',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

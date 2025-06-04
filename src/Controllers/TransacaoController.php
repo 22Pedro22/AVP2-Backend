@@ -17,12 +17,10 @@ class TransacaoController {
         try {
             $data = json_decode($request->getBody()->getContents(), true);
             
-            // Verificar se JSON é válido
             if (json_last_error() !== JSON_ERROR_NONE) {
                 return $response->withStatus(400);
             }
             
-            // Tentar criar a transação
             if ($this->transacao->criar($data)) {
                 return $response->withStatus(201);
             } else {
@@ -77,4 +75,3 @@ class TransacaoController {
             ->withStatus(200);
     }
 }
-
