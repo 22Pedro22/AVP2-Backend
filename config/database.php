@@ -6,13 +6,13 @@ class Database {
     
     private $host = 'localhost';
     private $database = 'transacoes_db';
-    private $username = 'root';
-    private $password = '';
+    private $username = 'postgres';
+    private $password = '88548582';
     
     private function __construct() {
         try {
             $this->connection = new PDO(
-                "mysql:host={$this->host};dbname={$this->database}",
+                "pgsql:host={$this->host};dbname={$this->database}",
                 $this->username,
                 $this->password,
                 [
