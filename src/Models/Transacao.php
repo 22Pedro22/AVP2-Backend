@@ -12,17 +12,16 @@ class Transacao {
     }
     
     public function criar($data) {
-        // Validações
+        
         if (!$this->validarDados($data)) {
             return false;
         }
         
-        // Verificar se ID já existe
+        
         if ($this->buscarPorId($data['id'])) {
             return false;
         }
 
-        // Converter dataHora para o formato do banco usando DateTimeImmutable
         try {
             $dt = new \DateTimeImmutable($data['dataHora']);
             $dataHoraFormatada = $dt->format('Y-m-d H:i:s');
@@ -63,7 +62,7 @@ class Transacao {
     }
     
     public function obterEstatisticas() {
-        // Transações dos últimos 60 segundos
+        
         $dataLimite = date('Y-m-d H:i:s', time() - 60);
         
         $sql = "SELECT 
@@ -80,7 +79,7 @@ class Transacao {
         
         $resultado = $stmt->fetch();
         
-        // Se não há transações, retornar zeros
+        
         if ($resultado['count'] == 0) {
             return [
                 'count' => 0,
@@ -101,22 +100,19 @@ class Transacao {
     }
     
     private function validarDados($data) {
-        // Verificar se todos os campos obrigatórios estão presentes
+        
         if (!isset($data['id']) || !isset($data['valor']) || !isset($data['dataHora'])) {
             return false;
         }
         
-        // Validar UUID
         if (!Uuid::isValid($data['id'])) {
             return false;
         }
         
-        // Validar valor (não negativo)
         if (!is_numeric($data['valor']) || $data['valor'] < 0) {
             return false;
         }
-        
-        // Validar data (não pode ser no futuro)
+
         try {
         $dt = new \DateTimeImmutable($data['dataHora']);
         if ($dt->getTimestamp() > time()) {
