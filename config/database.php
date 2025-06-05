@@ -6,8 +6,8 @@ class Database {
     
     private $host = 'localhost';
     private $database = 'transacoes_db';
-    private $username = 'root';
-    private $password = '';
+    private $username = 'meuusuario';
+    private $password = 'minhasenha';
     
     private function __construct() {
         try {
