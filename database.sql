@@ -6,12 +6,11 @@ USE transacoes_db;
 
 -- Criar tabela de transações
 CREATE TABLE IF NOT EXISTS transacoes (
-    id UUID PRIMARY KEY,
+    id VARCHAR(36) PRIMARY KEY,
     valor DECIMAL(15,2) NOT NULL CHECK (valor >= 0),
-    dataHora TIMESTAMPTZ NOT NULL,
+    dataHora DATETIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Criar índice para otimizar consultas por data/hora
 CREATE INDEX idx_dataHora ON transacoes(dataHora);
-
