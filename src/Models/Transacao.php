@@ -21,6 +21,14 @@ class Transacao {
         if ($this->buscarPorId($data['id'])) {
             return false;
         }
+
+        // Converter dataHora para o formato do banco usando DateTimeImmutable
+        try {
+            $dt = new \DateTimeImmutable($data['dataHora']);
+            $dataHoraFormatada = $dt->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            return false;
+        }
         
         $sql = "INSERT INTO transacoes (id, valor, dataHora) VALUES (:id, :valor, :dataHora)";
         $stmt = $this->db->prepare($sql);
@@ -28,7 +36,7 @@ class Transacao {
         return $stmt->execute([
             ':id' => $data['id'],
             ':valor' => $data['valor'],
-            ':dataHora' => $data['dataHora']
+            ':dataHora' => $dataHoraFormatada,
         ]);
     }
     
@@ -88,7 +96,7 @@ class Transacao {
             'sum' => (float)$resultado['sum'],
             'avg' => (float)$resultado['avg'],
             'min' => (float)$resultado['min'],
-            'max' => (float)$resultado['max']
+            'max' => (float)$resultado['max'],
         ];
     }
     
@@ -109,10 +117,14 @@ class Transacao {
         }
         
         // Validar data (não pode ser no futuro)
-        $dataTransacao = strtotime($data['dataHora']);
-        if (!$dataTransacao || $dataTransacao > time()) {
+        try {
+        $dt = new \DateTimeImmutable($data['dataHora']);
+        if ($dt->getTimestamp() > time()) {
             return false;
         }
+    } catch (\Exception $e) {
+        return false;
+    }
         
         return true;
     }

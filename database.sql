@@ -6,9 +6,9 @@ USE transacoes_db;
 
 -- Criar tabela de transações
 CREATE TABLE IF NOT EXISTS transacoes (
-    id VARCHAR(36) PRIMARY KEY,
+    id UUID PRIMARY KEY,
     valor DECIMAL(15,2) NOT NULL CHECK (valor >= 0),
-    dataHora DATETIME NOT NULL,
+    dataHora TIMESTAMPTZ NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
